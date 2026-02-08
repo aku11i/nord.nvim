@@ -10,6 +10,9 @@ function nord.load(opts)
 
   vim.o.termguicolors = true
 
+  local is_light = vim.o.background == "light"
+  require("nord.colors").apply_variant(is_light)
+
   if config.options.colorblind.enable then
     require("nord.colors").daltonize(config.options.colorblind.severity)
   end
@@ -17,6 +20,7 @@ function nord.load(opts)
   require("nord.config").options.on_colors(require("nord.colors").palette)
 
   vim.cmd([[ highlight clear ]])
+  vim.o.background = is_light and "light" or "dark"
 
   if config.options.terminal_colors then
     require("nord.terminal").apply()

@@ -62,8 +62,76 @@ local defaults = {
   none = "NONE",
 }
 
+local dark_values = {
+  polar_night = {
+    origin = "#2E3440", -- nord0
+    bright = "#3B4252", -- nord1
+    brighter = "#434C5E", -- nord2
+    brightest = "#4C566A", -- nord3
+    light = "#616E88", -- out of palette
+  },
+  snow_storm = {
+    origin = "#D8DEE9", -- nord4
+    brighter = "#E5E9F0", -- nord5
+    brightest = "#ECEFF4", -- nord6
+  },
+  frost = {
+    polar_water = "#8FBCBB", -- nord7
+    ice = "#88C0D0", -- nord8
+    artic_water = "#81A1C1", -- nord9
+    artic_ocean = "#5E81AC", -- nord10
+  },
+  aurora = {
+    red = "#BF616A", -- nord11
+    orange = "#D08770", -- nord12
+    yellow = "#EBCB8B", -- nord13
+    green = "#A3BE8C", -- nord14
+    purple = "#B48EAD", -- nord15
+  },
+}
+
+local light_values = {
+  polar_night = {
+    origin = "#E5E9F0", -- nord5: main background
+    bright = "#D8DEE9", -- nord4: secondary background
+    brighter = "#CCD3DE", -- derived: tertiary background
+    brightest = "#B0B7C4", -- derived: subtle UI elements
+    light = "#8C93A2", -- derived: comments
+  },
+  snow_storm = {
+    origin = "#3B4252", -- nord1: main foreground
+    brighter = "#434C5E", -- nord2: secondary foreground
+    brightest = "#4C566A", -- nord3: delimiters
+  },
+  frost = {
+    polar_water = "#8FBCBB", -- nord7
+    ice = "#7BB3C3", -- adjusted for light background
+    artic_water = "#81A1C1", -- nord9
+    artic_ocean = "#5E81AC", -- nord10
+  },
+  aurora = {
+    red = "#BF616A", -- nord11
+    orange = "#D08770", -- nord12
+    yellow = "#C5A565", -- darkened for light background
+    green = "#96B17F", -- darkened for light background
+    purple = "#B48EAD", -- nord15
+  },
+}
+
 colors.palette = defaults
 colors.default_bg = "#2E3440" -- nord0
+
+function colors.apply_variant(is_light)
+  local source = is_light and light_values or dark_values
+  for group, values in pairs(source) do
+    if type(values) == "table" then
+      for key, value in pairs(values) do
+        defaults[group][key] = value
+      end
+    end
+  end
+  colors.default_bg = is_light and "#E5E9F0" or "#2E3440"
+end
 
 function colors.daltonize(severity)
   local daltonize = require("nord.utils.colorblind").daltonize
