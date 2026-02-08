@@ -93,10 +93,27 @@ colorscheme nord
 vim.cmd.colorscheme("nord")
 ```
 
+Use the light variant by setting `background` before loading the colorscheme:
+
+```vim
+" Vim Script
+set background=light
+colorscheme nord
+```
+
+```lua
+-- Lua
+vim.o.background = "light"
+vim.cmd.colorscheme("nord")
+```
+
+If you change `background` at runtime, reload nord with `:colorscheme nord` to
+apply the new variant.
+
 ## ⚙️ Configuration
 
-> ❗️ configuration needs to be set **BEFORE** loading the color scheme with
-> `colorscheme nord`
+> ❗️ configuration and `vim.o.background` need to be set **BEFORE** loading the
+> color scheme with `colorscheme nord`
 
 Nord.nvim will use the default options, unless you call `setup`.
 

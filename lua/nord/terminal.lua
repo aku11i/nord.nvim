@@ -3,32 +3,59 @@ local terminal = {}
 local c = require("nord.colors").palette
 
 function terminal.apply()
-  -- dark
-  vim.g.terminal_color_0 = c.polar_night.bright
-  vim.g.terminal_color_8 = c.polar_night.brightest
+  if vim.o.background == "light" then
+    -- Keep terminal colors palette-driven so on_colors/colorblind customizations apply.
+    vim.g.terminal_color_0 = c.snow_storm.origin
+    vim.g.terminal_color_8 = c.snow_storm.brightest
 
-  -- light
-  vim.g.terminal_color_7 = c.snow_storm.brighter
-  vim.g.terminal_color_15 = c.snow_storm.brightest
+    vim.g.terminal_color_7 = c.polar_night.brightest
+    vim.g.terminal_color_15 = c.polar_night.origin
 
-  -- colors
-  vim.g.terminal_color_1 = c.aurora.red
-  vim.g.terminal_color_9 = c.aurora.red
+    vim.g.terminal_color_1 = c.aurora.red
+    vim.g.terminal_color_9 = c.aurora.red
 
-  vim.g.terminal_color_2 = c.aurora.green
-  vim.g.terminal_color_10 = c.aurora.green
+    vim.g.terminal_color_2 = c.aurora.green
+    vim.g.terminal_color_10 = c.aurora.green
 
-  vim.g.terminal_color_3 = c.aurora.yellow
-  vim.g.terminal_color_11 = c.aurora.yellow
+    vim.g.terminal_color_3 = c.aurora.yellow
+    vim.g.terminal_color_11 = c.aurora.yellow
 
-  vim.g.terminal_color_4 = c.frost.artic_water
-  vim.g.terminal_color_12 = c.frost.artic_water
+    vim.g.terminal_color_4 = c.frost.artic_water
+    vim.g.terminal_color_12 = c.frost.artic_water
 
-  vim.g.terminal_color_5 = c.aurora.purple
-  vim.g.terminal_color_13 = c.aurora.purple
+    vim.g.terminal_color_5 = c.aurora.purple
+    vim.g.terminal_color_13 = c.aurora.purple
 
-  vim.g.terminal_color_6 = c.frost.ice
-  vim.g.terminal_color_14 = c.frost.polar_water
+    vim.g.terminal_color_6 = c.frost.ice
+    vim.g.terminal_color_14 = c.frost.polar_water
+  else
+    -- dark
+    vim.g.terminal_color_0 = c.polar_night.bright
+    vim.g.terminal_color_8 = c.polar_night.brightest
+
+    -- light
+    vim.g.terminal_color_7 = c.snow_storm.brighter
+    vim.g.terminal_color_15 = c.snow_storm.brightest
+
+    -- colors
+    vim.g.terminal_color_1 = c.aurora.red
+    vim.g.terminal_color_9 = c.aurora.red
+
+    vim.g.terminal_color_2 = c.aurora.green
+    vim.g.terminal_color_10 = c.aurora.green
+
+    vim.g.terminal_color_3 = c.aurora.yellow
+    vim.g.terminal_color_11 = c.aurora.yellow
+
+    vim.g.terminal_color_4 = c.frost.artic_water
+    vim.g.terminal_color_12 = c.frost.artic_water
+
+    vim.g.terminal_color_5 = c.aurora.purple
+    vim.g.terminal_color_13 = c.aurora.purple
+
+    vim.g.terminal_color_6 = c.frost.ice
+    vim.g.terminal_color_14 = c.frost.polar_water
+  end
 end
 
 function terminal.highlights()
