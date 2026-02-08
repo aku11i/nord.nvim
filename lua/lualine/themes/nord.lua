@@ -2,6 +2,8 @@ local c = require("nord.colors").palette
 local utils = require("nord.utils")
 
 local nord = {}
+local methods = {}
+local modes = { "normal", "insert", "visual", "replace", "command", "inactive" }
 
 local function apply()
   local styles = require("nord.config").options.styles
@@ -35,17 +37,17 @@ local function apply()
   }
 
   if styles.lualine_bold then
-    for _, mode in pairs(nord) do
-      mode.a.gui = "bold"
+    for _, mode_name in ipairs(modes) do
+      nord[mode_name].a.gui = "bold"
     end
   end
 end
 
-function nord.refresh()
+function methods.refresh()
   apply()
   return nord
 end
 
 apply()
 
-return nord
+return setmetatable(nord, { __index = methods })
