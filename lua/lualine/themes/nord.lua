@@ -1,41 +1,51 @@
 local c = require("nord.colors").palette
 local utils = require("nord.utils")
-local config = require("nord.config").options.styles
 
 local nord = {}
 
-nord.normal = {
-  a = { fg = c.polar_night.bright, bg = c.frost.ice },
-  b = { fg = c.snow_storm.brighter, bg = c.polar_night.bright },
-  c = { fg = c.snow_storm.brighter, bg = c.polar_night.brighter },
-}
+local function apply()
+  local styles = require("nord.config").options.styles
 
-nord.insert = {
-  a = { fg = c.polar_night.bright, bg = c.snow_storm.origin },
-}
+  nord.normal = {
+    a = { fg = c.polar_night.bright, bg = c.frost.ice },
+    b = { fg = c.snow_storm.brighter, bg = c.polar_night.bright },
+    c = { fg = c.snow_storm.brighter, bg = c.polar_night.brighter },
+  }
 
-nord.visual = {
-  a = { fg = c.polar_night.bright, bg = c.frost.polar_water },
-}
+  nord.insert = {
+    a = { fg = c.polar_night.bright, bg = c.snow_storm.origin },
+  }
 
-nord.replace = {
-  a = { fg = c.polar_night.bright, bg = c.aurora.yellow },
-}
+  nord.visual = {
+    a = { fg = c.polar_night.bright, bg = c.frost.polar_water },
+  }
 
-nord.command = {
-  a = { fg = c.polar_night.bright, bg = c.aurora.purple },
-}
+  nord.replace = {
+    a = { fg = c.polar_night.bright, bg = c.aurora.yellow },
+  }
 
-nord.inactive = {
-  a = { fg = c.snow_storm.origin, bg = utils.make_global_bg() },
-  b = { fg = c.snow_storm.origin, bg = utils.make_global_bg() },
-  c = { fg = c.snow_storm.origin, bg = c.polar_night.bright },
-}
+  nord.command = {
+    a = { fg = c.polar_night.bright, bg = c.aurora.purple },
+  }
 
-if config.lualine_bold then
-  for _, mode in pairs(nord) do
-    mode.a.gui = "bold"
+  nord.inactive = {
+    a = { fg = c.snow_storm.origin, bg = utils.make_global_bg() },
+    b = { fg = c.snow_storm.origin, bg = utils.make_global_bg() },
+    c = { fg = c.snow_storm.origin, bg = c.polar_night.bright },
+  }
+
+  if styles.lualine_bold then
+    for _, mode in pairs(nord) do
+      mode.a.gui = "bold"
+    end
   end
 end
+
+function nord.refresh()
+  apply()
+  return nord
+end
+
+apply()
 
 return nord

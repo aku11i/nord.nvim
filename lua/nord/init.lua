@@ -19,6 +19,11 @@ function nord.load(opts)
 
   require("nord.config").options.on_colors(require("nord.colors").palette)
 
+  local lualine_theme = package.loaded["lualine.themes.nord"]
+  if lualine_theme and type(lualine_theme.refresh) == "function" then
+    lualine_theme.refresh()
+  end
+
   vim.cmd([[ highlight clear ]])
   vim.o.background = is_light and "light" or "dark"
 
